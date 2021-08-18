@@ -1,0 +1,72 @@
+﻿@model MyStore.WebUI.Models.CartIndexViewModel
+
+@{
+    ViewBag.Title = "My Store: Your Cart";
+}
+
+<style>
+    #cartTable td {
+        vertical-align: middle
+    }
+</style>
+
+<h2>Your Cart</h2>
+<table id="cartTable" class="table">
+    <thead>
+        <tr>
+            <th class="text-center">Quantity</th>
+            <th class="text-left">Item</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Cart.Lines)
+        {
+            <tr>
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-left">@line.Product.Name</td>
+                <td class="text-right">@line.Product.Price.ToString("c")</td>
+                <td class="text-right">@((line.Quantity * line.Product.Price).ToString("c"))</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("ProductId", line.Product.ProductID)
+
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        <input class="btn btn-warning" type="submit" value="Remove" />
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.Cart.ComputeTotalValue().ToString("c")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink("Continue shopping", "List", "Product", null, new { @class = "btn btn-primary" });
+        <span>&nbsp;</span>
+        @Html.ActionLink("Checkout now", "Checkout", null, new { @class = "btn btn-primary" });
+    }
+
+</div>
+
+<div id="dialog" title="Dialog Title"></div>
+
+@section scripts {
+
+    <script>
+
+    </script>
+
+}

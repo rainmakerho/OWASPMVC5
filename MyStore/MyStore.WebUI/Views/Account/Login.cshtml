@@ -1,0 +1,126 @@
+﻿@model MyStore.WebUI.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "User: Login";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="panel col-md-4">
+        <div class="panel-heading">
+            <h3>Log In</h3>
+        </div>
+        <div class="panel-body">
+            <p class="lead">Please log in to access </p>
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
+            {
+                @Html.ValidationSummary()
+                <div class="form-group">
+                    <label>Email:</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label>Password:</label>
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+                </div>
+
+               
+                <div class="control-group">
+
+                    <div class="controls">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe, new { @class = "control-label" })
+                    </div>
+                </div>
+                <input type="submit" value="Login" class="btn btn-primary" />
+            }
+        </div>
+    </div>
+ 
+        <div class="card col-md-8">
+            <div class="card-header">
+                <h4>Loing Users</h4>
+            </div>
+            <div class="card-body">
+                <table id="cartTable" class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-left">email</th>
+                            <th class="text-left">password</th>
+                            <th class="text-left">isAdmin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+    @foreach (MyStore.Domain.Entities.User user in ViewBag.Users)
+    {
+                        <tr>
+                            <td class="text-left">@user.Email</td>
+                            <td class="text-left">@user.Password</td>
+                            <td class="text-left">@user.IsAdmin</td>
+                        </tr>
+    }
+
+
+
+                    </tbody>
+                        <tfoot>
+                            &nbsp;
+                        </tfoot>
+                    </table>
+            </div>
+        </div>
+                           
+</div>
+<div class="row">
+    <div class="panel col-md-12">
+        <div class="panel-body">
+            <p>
+                @Html.ActionLink("Register", "Register") if you don't have an account.
+            </p>
+            <p>
+                @Html.ActionLink("Forgot your password?", "ResetPassword")
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="loggingOn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Logging you back in automatically...</h3>
+            </div>
+            <div class="modal-body">
+                <div class="progress" id="progressBar">
+                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95%</div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+        @section Scripts {
+            <script>
+               
+                var email = $.cookie("Email");
+                var password = $.cookie("Password");
+
+                if (email != null && password != null) {
+                    var unencodedPassword = $.base64.decode(password);
+
+                    $('#loggingOn').modal('show');
+
+                    $('#Email').val(email);
+                    $('#Password').val(unencodedPassword);
+
+                    delay(function () {
+                      $('#loginForm').submit();
+                    }, 3500);
+                }
+            </script>
+        }
+
+

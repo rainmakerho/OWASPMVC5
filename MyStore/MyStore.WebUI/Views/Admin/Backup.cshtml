@@ -1,0 +1,58 @@
+﻿
+
+@{
+    ViewBag.Title = "Admin: Backup";
+}
+
+<h2>Backup Products Data</h2>
+
+<div class="row">
+    @using (Html.BeginForm("Backup", "Admin"))
+    {
+        <div class="col-md-4 col-md-offset-2">
+            <input class="form-control" type="text"
+                   name="backupFileName"
+                   value="@ViewBag.BackupFileName"
+                   placeholder="Backup file name..." />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" class="btn btn-primary" value="Execute" />
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="well well-lg">
+        @if (!string.IsNullOrEmpty(ViewBag.ExecuteOutput))
+        {
+            foreach (string line in ViewBag.ExecuteOutput.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                @line<br/>
+            }
+        }
+
+    </div>
+</div>
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            <h4>Backup files</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+            @{
+                var relBackupFolder = "~/App_Data/bk";
+                var backupFolder = Server.MapPath(relBackupFolder);
+                var di = new DirectoryInfo(backupFolder);
+                foreach (var fi in di.GetFiles())
+                {
+                    var relFile = $"{relBackupFolder}/{fi.Name}";
+                        <li class="list-group-item list-group-item-info">
+                            @Html.ActionLink(fi.Name, "Download", "FileDownload", new { filePath = relFile }, null)
+                            @*//todo: Session-7.7 Back file Download Fix*@
+                            @*@Html.ActionLink(fi.Name, "DownloadBackupFile", "FileDownload", new { filePath = fi.Name }, null)*@
+                        </li>
+                }
+
+            }
+        </ul>
+    </div>
+</div>

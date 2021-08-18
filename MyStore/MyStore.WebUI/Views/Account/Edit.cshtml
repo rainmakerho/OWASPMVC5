@@ -1,0 +1,50 @@
+﻿@model MyStore.Domain.Entities.User
+
+@{
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("Edit", "Account"))
+{
+<div class="panel-body">
+    @Html.ValidationSummary()
+    @Html.HiddenFor(m => m.UserID)
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.HiddenFor(m => m.Email);
+    }
+    else
+    {
+        <div class="form-group">
+            <label>Email:</label>
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        </div>
+    }
+    
+
+    <div class="form-group">
+        <label>FirstName:</label>
+        @Html.TextBoxFor(m => m.FirstName, new { data_val_regex_pattern = "^([a-zA-Z]+)$", data_val_regex = "Invalid First name", @class = "form-control"})
+    </div>
+
+    <div class="form-group">
+        <label>LastName:</label>
+        @Html.TextBoxFor(m => m.LastName, new { data_val_regex_pattern = "^([a-zA-Z]+)$", data_val_regex = "Invalid Last name",@class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Password:</label>
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+    </div>
+</div>
+    <div class="panel-footer">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        @Html.ActionLink("Cancel and return to Login", "Login", null, new { @class = "btn btn-default" })
+
+    </div>
+    
+}

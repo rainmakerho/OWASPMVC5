@@ -1,0 +1,38 @@
+﻿@model MyStore.WebUI.Models.ProductsListViewModel
+
+@{
+    ViewBag.Title = "Products";
+}
+     
+@if (!string.IsNullOrWhiteSpace(ViewBag.EncodedSearchTerm))
+{
+    <h2>You searched for &quot;<span id="searchTerm">@Html.Raw(ViewBag.EncodedSearchTerm)</span>&quot;</h2>
+}
+@if (!Model.Products.Any())
+{
+    <p class="alert alert-danger">No results found for your search</p>
+}
+else
+{
+    foreach (var p in Model.Products)
+    {
+        @Html.Partial("ProductSummary", p)
+    }
+
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.PagingInfo,
+            x => Url.Action("List", new { page = x, category = Model.CurrentCategory, searchTerm = ViewBag.SearchTerm }))
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $('#searchTerm').val('@Html.Raw(ViewBag.RawSearchTerm)');
+        
+        @{
+//todo: Session-8.1 Reflected XSS Fix
+//$('#searchTerm').val('@Ajax.JavaScriptStringEncode(ViewBag.RawSearchTerm)');
+        }
+
+    </script>
+}

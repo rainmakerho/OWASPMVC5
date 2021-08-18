@@ -1,0 +1,37 @@
+﻿@model MyStore.Domain.Entities.User
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="navbar-right navbar-text">
+        Hello @Model.FirstName !
+    </div>
+    if (User.IsInRole("Admin"))
+    {
+        <div class="navbar-right">
+            @Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "btn btn-default navbar-btn" })
+        </div>
+    }
+
+    <div class="navbar-right">
+        @using (Html.BeginForm("LogOff", "Account"))
+        {
+            <input type="submit" value="Log Off" class="btn btn-default navbar-btn" />
+        }
+    </div>
+
+    <div class="navbar-right">
+        @Html.ActionLink("ChangePassword", "ChangePassword", "Account", null, new { @class = "btn btn-default navbar-btn" })
+    </div>
+    <div class="navbar-right">
+        @Html.ActionLink("Edit", "Edit", "Account", new { userId = Model.UserID }, new { @class = "btn btn-default navbar-btn" })
+    </div>
+}
+else
+{
+    <div class="navbar-right">
+        @Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-default navbar-btn" })
+    </div>
+    <div class="navbar-right">
+        @Html.ActionLink("Log in", "Login", "Account", null, new { @class = "btn btn-default navbar-btn" })
+    </div>
+}

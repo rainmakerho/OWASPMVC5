@@ -1,0 +1,22 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    var exception = Model.Exception;
+    var errorMessage = exception.ToString();
+}
+
+<html>
+<head>
+    <!-- include your CSS and JS here. -->
+</head>
+<body>
+    <h2>500 OOPS! Error Occurred</h2>
+    @*@if (!String.IsNullOrEmpty(errorMessage))
+    {
+        <h3>Error Message: @errorMessage</h3>
+    }*@
+
+    Sorry about this.
+    <h4>@Html.ActionLink("Go Back To Home Page", "List", "Product")</h4>
+</body>
+</html>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MyStore.Domain.Entities.Order>
+
+
+@{
+    ViewBag.Title = "Search My Orders";
+}
+<div class="row">
+    @using (Html.BeginForm("Orders", "Cart"))
+    {
+        <div class="col-md-4 col-md-offset-2">
+            <input class="form-control" type="text"
+                   name="productName"
+                   value="@ViewBag.Search"
+                   placeholder="Search Orders By Product Name" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" class="btn btn-success" value="Search Orders" />
+        </div>
+    }
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Your Orders</h3>
+
+    </div>
+    <div class="panel-body">
+        @foreach (var o in Model)
+        {
+            @Html.Partial("OrderSummary", o)
+        }
+    </div>
+    <div class="panel-footer text-center">
+        總共 @Model.Count() 筆訂單
+    </div>
+</div>

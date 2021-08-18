@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="My Store" />
+    <meta name="apple-mobile-web-app-title" content="My Store" />
+    <meta name="msapplication-starturl" content="/" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My Store</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar-right {
+            float: right !important;
+            margin-right: 15px;
+            margin-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="navbar navbar-inverse" role="navigation">
+
+            <a class="navbar-brand" href="~/">
+                <span class="hidden-xs">My Store
+                </span>
+                <div class="visible-xs">My</div>
+                <div class="visible-xs">Store</div>
+
+            </a>
+
+            <form action="@Url.Action("List", "Product")" method="get" class="navbar-right navbar-text">
+                <input type="text" class="search-query" placeholder="Search" name="searchTerm" id="searchTerm" />
+            </form>
+
+
+            @Html.Action("Summary", "Cart")
+            @Html.Action("UserProfiler", "Account")
+        </div>
+        <div class="visible-xs">
+            @Html.Action("Menu", "Nav", new { horizontalLayout = true })
+        </div>
+        <div class="row panel">
+            <div id="categories" class="col-xs-3 hidden-xs">
+                @Html.Action("Menu", "Nav")
+            </div>
+            @if (TempData["message"] != null)
+            {
+                <div class="alert alert-success">@TempData["message"]</div>
+            }
+            <div class="col-xs-12 col-sm-8">
+                @RenderBody()
+            </div>
+        </div>
+        @*<p>
+            <button id="permission-btn" onclick="showNotify()">Ask Permission</button>
+        </p>*@
+        <footer>
+            <p>&copy; @DateTime.Now.Year - gss.com.tw </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    
+     
+</body>
+</html>

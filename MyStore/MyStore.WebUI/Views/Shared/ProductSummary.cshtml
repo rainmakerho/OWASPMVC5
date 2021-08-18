@@ -1,0 +1,36 @@
+﻿@model MyStore.Domain.Entities.Product
+
+    <div class="well well-lg">
+        @if (!string.IsNullOrWhiteSpace(Model.ImagePath))
+        {
+            //todo: Session-7.5 image path Fix 
+            //src="@Url.Action("GetImage", "Product", new { Model.ProductID })"
+            <div class="pull-left" style="margin-right:10px">
+                <img class="img-thumbnail" width="75" height="75"
+                     src="@Url.Content("~/Uploads/" + Model.ImagePath)" />
+            </div>
+        }
+        <h3>
+            <strong>@Model.Name</strong>
+            <span class="pull-right label label-primary">@Model.Price.ToString("c")</span>
+        </h3>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            using (Html.BeginForm("AddToCart", "Cart"))
+            {
+                <div class="pull-right">
+                    @Html.HiddenFor(x => x.ProductID)
+                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                    <input type="submit" class="btn btn-success" value="Add to cart" />
+                </div>
+            }
+        }
+        <span class="pull-right">
+            @Html.ActionLink("Detail", "Detail", "Product", new { productId = @Model.ProductID },
+    new { @class = "btn btn-info" })
+        </span>
+        <span id="sp_@Model.ProductID" class="lead"> @Model.Description</span>
+
+    </div>
+    

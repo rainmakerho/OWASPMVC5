@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "My Store: Order Submitted";
+}
+<h2>Thanks!</h2>
+<p id="shippingResult"></p>
+
+
+@section scripts {
+    <script type="text/javascript">
+        var shippingService = '@System.Configuration.ConfigurationManager.AppSettings["ShippingServiceURL"]';
+        var shippingXML = '@Html.Raw(ViewBag.shippingXML)';
+        console.log('shippingXML', shippingXML);
+        //shippingXML = "<!DOCTYPE DOC[<!ENTITY name SYSTEM 'C:\\WINDOWS\\WIN.INI'>]><order><email>&name;</email><order_id>123</order_id></order>";
+        $.ajax({
+                type: "POST",
+                url: shippingService,
+                data: { productOrder: shippingXML },
+                success: function (resp) {
+                    var result = resp.documentElement.innerHTML;
+                        console.log('result', result);
+                    $('#shippingResult').text(result);
+                }
+            });
+    </script>
+}

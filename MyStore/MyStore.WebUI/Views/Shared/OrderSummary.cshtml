@@ -1,0 +1,44 @@
+﻿@model MyStore.Domain.Entities.Order
+
+    <div class="card border-secondary  mb-3">
+        <div class="card-header">
+            <h3>Order:@Model.OrderID</h3>
+            <h4 class="card-title text-primary">Email:@Model.UserEmail</h4>
+        </div>
+        <div class="card-body">
+            <table id="cartTable" class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-left">Item</th>
+                        <th class="text-right">Price</th>
+                        <th class="text-right">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var line in Model.CartLines)
+                    {
+                        <tr>
+                            <td class="text-center">@line.Quantity</td>
+                            <td class="text-left">@line.Product.Name</td>
+                            <td class="text-right">@line.Product.Price.ToString("c")</td>
+                            <td class="text-right">@((line.Quantity * line.Product.Price).ToString("c"))</td>
+                        </tr>
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-right">Total:</td>
+                        <td class="text-right">
+                            @Model.CartLines.Sum(e => e.Product.Price * e.Quantity).ToString("c")
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <span>電話號碼:@Model.ShippingDetails.Tel</span>
+            <span>送貨地點:@Model.ShippingDetails.Address</span>
+        </div>
+         
+    </div>
+

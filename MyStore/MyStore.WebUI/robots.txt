@@ -1,0 +1,6 @@
+﻿User-agent: * 
+Disallow: /images/
+Disallow: /scripts/
+Disallow: /admin/index
+Disallow: /uploads/
+Disallow: /emails/

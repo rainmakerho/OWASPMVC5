@@ -1,0 +1,20 @@
+﻿@model IEnumerable<string>
+
+@{ 
+    var btnCssStyle = "btn btn-block btn-default btn-lg";
+}
+@Html.ActionLink("Home", "List", "Product", null, 
+    new { @class = btnCssStyle })
+
+@foreach(var link in Model)
+{
+    @Html.RouteLink(link, new { 
+        controller = "Product",
+        action = "List",
+        category = link,
+        }, new
+        {
+            @class=btnCssStyle 
+            + (link == ViewBag.SelectedCategory ? " btn-primary" : "")
+        })
+}

